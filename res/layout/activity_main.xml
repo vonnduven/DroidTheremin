@@ -11,11 +11,6 @@
         android:checked="true"
         android:text="Play" />
 
-    <android.support.v7.widget.Space
-        android:id="@+id/space1"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp" />
-
     <TextView
         android:id="@+id/lbl_Freq"
         android:layout_width="wrap_content"
@@ -27,11 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:progress="0" />
-
-    <android.support.v7.widget.Space
-        android:id="@+id/space2"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp" />
 
     <TextView
         android:id="@+id/lbl_Vol"

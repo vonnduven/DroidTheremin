@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
@@ -81,8 +82,7 @@ public class MainActivity extends Activity {
 						AudioFormat.CHANNEL_OUT_MONO,
 						AudioFormat.ENCODING_PCM_16BIT);
 				// create an audiotrack object
-				audioTrack = new AudioTrack(
-						AudioManager.STREAM_MUSIC, sr,
+				audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, sr,
 						AudioFormat.CHANNEL_OUT_MONO,
 						AudioFormat.ENCODING_PCM_16BIT, buffsize,
 						AudioTrack.MODE_STREAM);
@@ -115,14 +115,44 @@ public class MainActivity extends Activity {
 			}
 		};
 		t.start();
-		
+
 		vSlider.setProgress(50);
+	}
+	
+	protected void onResume() {
+		super.onResume();
+		// if the box is checked, resume
+		if (audioTrack != null && activeToggle.isChecked())
+			audioTrack.play();
+	}
+
+    protected void onPause() {
+    	super.onPause();
+    	audioTrack.pause();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// getMenuInflater().inflate(R.menu.activity_main, menu);
+		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
+	}
+
+	/**
+	 * Event Handling for Individual menu item selected Identify single menu
+	 * item by it's id
+	 * */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+
+		case R.id.menu_quit:
+			finish();
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	public void onDestroy() {
